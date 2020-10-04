@@ -10,7 +10,7 @@ sockets.init = (server) => {
     socket.on('message', (data) => {
       console.log(data);
       envService.createEnvInfo(data).then((result) => {
-        console.log(`Insert success temp: ${result.temp} C, humid:  ${result.humid}%`);
+        console.log(`Insert success temp: ${result.temp} °C, humid: ${result.humid}%`);
       }).catch((err) => {
         console.error(err.message);
       });
