@@ -8,9 +8,14 @@ sockets.init = (server) => {
   io.sockets.on('connection', (socket) => {
     console.log('socket connected');
     socket.on('message', (data) => {
-      console.log(data);
       envService.createEnvInfo(data).then((result) => {
         console.log(`Insert success temp: ${result.temp} °C, humid: ${result.humid}%`);
+        return envService.listEnvInfo({
+          page: parseInt(1, 10),
+          pageSize: parseInt(10, 10),
+        });
+      }).then((envInfo) => {
+        socket.broadcast.emit('update', envInfo);
       }).catch((err) => {
         console.error(err.message);
       });

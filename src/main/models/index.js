@@ -33,9 +33,9 @@ const tableConfig = {
   sequelize: db,
   charset: 'utf8',
   collate: 'utf8_general_ci',
-  defaultScope: {
-    attributes: { exclude: ['createdAt', 'updatedAt'] },
-  },
+  // defaultScope: {
+  //   attributes: { exclude: ['createdAt', 'updatedAt'] },
+  // },
 };
 
 // Single table

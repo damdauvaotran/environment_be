@@ -8,7 +8,7 @@ const router = express.Router();
 /**
  * @swagger
  *
- * /film/{filmId}:
+ * /env:
  *  get:
  *    security:
  *      - Bearer: []
@@ -19,11 +19,16 @@ const router = express.Router();
  *    produces:
  *      - application/json
  *    parameters:
- *      - in: path
- *        name: filmId
+ *      - in: query
+ *        name: page
  *        schema:
  *          type: integer
- *        required: true
+ *        required: false
+ *      - in: query
+ *        name: pageSize
+ *        schema:
+ *          type: integer
+ *        required: false
  *    responses:
  *      '200':
  *        description: OK
@@ -38,14 +43,18 @@ const router = express.Router();
 
 router.get('/env', async (req, res) => {
   try {
-    const filmInfo = await EnvService.listEnvInfo();
-    return buildRes(res, true, filmInfo);
+    const { page, pageSize } = req.query;
+    const envInfo = await EnvService.listEnvInfo({
+      page: parseInt(page, 10),
+      pageSize: parseInt(pageSize, 10),
+    });
+    return buildRes(res, true, envInfo);
   } catch (e) {
     return buildRes(res, false, e.toString());
   }
 });
 
-router.post('/info', async (req, res) => {
+router.post('/env', async (req, res) => {
   try {
     const { temp, humid } = req.body;
 
