@@ -10,9 +10,9 @@ const EnvService = {
     return tempInfo;
   },
 
-  async listEnvInfo({ page = 0, pageSize = 0 }) {
+  async listEnvInfo({ page = 0, pageSize = 10 }) {
     let tempInfo;
-    if (pageSize > 0) {
+    if (pageSize && page) {
       tempInfo = await db.Infos.findAndCountAll({
         limit: pageSize,
         offset: (page - 1) * pageSize,
@@ -28,7 +28,15 @@ const EnvService = {
       });
     }
 
-    return tempInfo;
+    return {
+      count: tempInfo.count,
+      rows: tempInfo.rows.map((x) => ({
+        id: x.id,
+        temp: x.temp,
+        humid: x.humid,
+        sampleTime: x.createdAt,
+      })),
+    };
   },
 };
 
