@@ -9,7 +9,8 @@ sockets.init = (server) => {
     console.log('socket connected');
     socket.on('message', (data) => {
       envService.createEnvInfo(data).then((result) => {
-        console.log(`Insert success temp: ${result.temp} °C, humid: ${result.humid}%`);
+        console.log(data);
+        console.log(`Insert success temp: ${data.objectTemp} °C, ambient: ${data.ambientTemp} °C`);
         return envService.listEnvInfo({
           page: parseInt(1, 10),
           pageSize: parseInt(10, 10),

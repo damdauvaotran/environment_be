@@ -8,11 +8,11 @@ module.exports = (db, config) => db.define('environment',
       allowNull: false,
       autoIncrement: true,
     },
-    temp: {
+    objectTemp: {
       type: type.FLOAT,
       allowNull: false,
     },
-    humid: {
+    ambientTemp: {
       type: type.FLOAT,
       allowNull: false,
     },

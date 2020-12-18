@@ -2,10 +2,10 @@ const db = require('../models');
 const { ResponseException } = require('../utils/exception');
 
 const EnvService = {
-  async createEnvInfo({ temp, humid }) {
+  async createEnvInfo({ objectTemp, ambientTemp }) {
     const tempInfo = await db.Infos.create({
-      temp,
-      humid,
+      objectTemp,
+      ambientTemp,
     });
     return tempInfo;
   },
@@ -32,8 +32,8 @@ const EnvService = {
       count: tempInfo.count,
       rows: tempInfo.rows.map((x) => ({
         id: x.id,
-        temp: x.temp,
-        humid: x.humid,
+        objectTemp: x.objectTemp,
+        ambientTemp: x.ambientTemp,
         sampleTime: x.createdAt,
       })),
     };
