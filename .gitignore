@@ -40,3 +40,6 @@ yarn-error.log*
 
 # Log directory
 /logs
+
+# Vscode
+.vscode/
